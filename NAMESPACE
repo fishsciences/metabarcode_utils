@@ -3,6 +3,8 @@
 export(csv_to_fasta)
 export(extract_ncbi_tabs)
 export(mitofish_to_csv)
+export(reduce_ncbi)
+export(write_ncbi_tabs)
 import(readxl)
 importFrom(utils,read.csv)
 importFrom(utils,write.csv)
