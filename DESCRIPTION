@@ -1,10 +1,13 @@
 Package: metabarcodeUtils
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
+Title: Meta-barcoding Utilities
+Version: 0.1.0
 Date: 2021-10-25
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Matt Espe
+Maintainer: Matt Espe <one.straw.consulting@gmail.com>
+Description: Utilities for the meta-barcoding workflow
+Imports:
+	readxl
+License: GLP-3
+Encoding: UTF-8 
 RoxygenNote: 7.1.2

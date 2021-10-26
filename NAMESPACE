@@ -2,3 +2,4 @@
 
 export(csv_to_fasta)
 export(mitofish_to_csv)
+import(readxl)

@@ -6,7 +6,7 @@
 ##' @param df data.frame, the results of read.csv
 ##' @param outfile name of output file
 ##' @param outdir directory to write output to. Defaults to current working directory 
-##' @return NULL 
+##' @return file path to fasta file
 ##' @author Matt Espe
 ##' @export
 csv_to_fasta = function(csv_file, df = read.csv(csv_file),
@@ -16,7 +16,7 @@ csv_to_fasta = function(csv_file, df = read.csv(csv_file),
     text = construct_fasta(df)
     cat(text,
         file = file.path(outdir, outfile))
-    return(NULL)
+    return(file.path(outdir, outfile))
 }
 
 construct_fasta = function(df)
