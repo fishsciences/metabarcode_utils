@@ -5,6 +5,7 @@
 ##' eDNA data.
 ##' 
 ##' @import readxl
+##' @importFrom utils read.csv write.csv
 ##' @docType package
 ##' @name metabarcodeUtils
 NULL

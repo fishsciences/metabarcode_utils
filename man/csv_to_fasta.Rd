@@ -20,6 +20,9 @@ csv_to_fasta(
 
 \item{outdir}{directory to write output to. Defaults to current working directory}
 }
+\value{
+file path to fasta file
+}
 \description{
 Creates a Fasta file from a CSV
 }

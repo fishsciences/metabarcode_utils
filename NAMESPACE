@@ -3,3 +3,5 @@
 export(csv_to_fasta)
 export(mitofish_to_csv)
 import(readxl)
+importFrom(utils,read.csv)
+importFrom(utils,write.csv)
