@@ -71,7 +71,7 @@ reduce_ncbi = function(df,
                                      "accession"),
                        accession_keep = c("all", "top"), 
                        query_threshold = 90,
-                       thresholds = c(97, 80, 0))
+                       thresholds = c(97, 80))
 {
     if(class(df) == "list"){
         ans = lapply(df, reduce_ncbi, keep_cols = keep_cols,
@@ -85,7 +85,10 @@ reduce_ncbi = function(df,
     df = df[,colnames(df) %in% keep_cols]
     if(max(df$query_cover, na.rm = TRUE) < query_threshold)
         return("<90% Coverage")
-    
+
+    if(max(df$per_ident, na.rm = TRUE) < min(thresholds))
+        return(paste0("<", min(thresholds), "% Per Ident")
+
     for(th in thresholds){
         ans = subset(df, per_ident > th)
         if(nrow(ans)){
