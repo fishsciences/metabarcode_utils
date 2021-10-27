@@ -60,7 +60,7 @@ extract_ncbi_tabs = function(file,
 ##' @param query_threshold the threshold of query_coverage. Below this
 ##'     value, a string will be returned.
 ##' @param thresholds vector of threshold to cut off at. The last
-##'     should be zero.
+##'     will be the lowest per_ident to return.
 ##' @return list of data.frames of reduced rows
 ##' @author Matt Espe
 ##' @export
@@ -87,8 +87,8 @@ reduce_ncbi = function(df,
         return("<90% Coverage")
 
     if(max(df$per_ident, na.rm = TRUE) < min(thresholds))
-        return(paste0("<", min(thresholds), "% Per Ident")
-
+        return(paste0("<", min(thresholds), "% Per Ident"))
+    
     for(th in thresholds){
         ans = subset(df, per_ident > th)
         if(nrow(ans)){

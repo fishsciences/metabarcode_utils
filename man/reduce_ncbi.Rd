@@ -10,7 +10,7 @@ reduce_ncbi(
     "accession"),
   accession_keep = c("all", "top"),
   query_threshold = 90,
-  thresholds = c(97, 80, 0)
+  thresholds = c(97, 80)
 )
 }
 \arguments{
@@ -25,7 +25,7 @@ reduce_ncbi(
 value, a string will be returned.}
 
 \item{thresholds}{vector of threshold to cut off at. The last
-should be zero.}
+will be the lowest per_ident to return.}
 }
 \value{
 list of data.frames of reduced rows

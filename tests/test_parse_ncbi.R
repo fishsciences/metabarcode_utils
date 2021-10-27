@@ -13,4 +13,11 @@ stopifnot(!any(duplicated(ww$taxid)))
 stopifnot(nrow(w2) > nrow(ww))
 stopifnot(class(w3) == "list")
 
+d = tempdir()
+write_ncbi_tabs(w3, d)
+
+w3$Species3 = "<90% Coverage"
+w3$Species4 = "<80% Per Ident"
+
+write_ncbi_tabs(w3, d)
 
