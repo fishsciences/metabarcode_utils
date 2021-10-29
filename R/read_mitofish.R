@@ -19,19 +19,27 @@ mitofish_to_csv = function(file, outfile = basename(file),
     sh = excel_sheets(file)
     st = get_sheet_type(sh)
     df = lapply(sh, function(x) as.data.frame(read_excel(file, sheet = x)))
+    empty_sh = sapply(df, nrow) == 0
+
+    if(any(empty_sh)){
+        df = df[!empty_sh]
+        st = st[!empty_sh]
+    }
     df = lapply(df, function(x) {
         colnames(x) = gsub(" ", "", colnames(x))
         x
     })
+    
     names(df) = st
     
     hit = df[st != "NoHits"]
-    nohit = df[st == "NoHits"][[1]]
+    nohit = df[st == "NoHits"]
     
     hit = mapply(process_hits, hit, names(hit), SIMPLIFY=FALSE)
     hit = do.call(rbind, hit)
     write.csv(hit, file.path(outdir, paste0(ff, "_hits.csv")), row.names = FALSE)
-    write.csv(nohit[[1]], file.path(outdir, paste0(ff, "_nohit.csv")), row.names = FALSE)
+    if(length(nohit))
+        write.csv(nohit[[1]], file.path(outdir, paste0(ff, "_nohit.csv")), row.names = FALSE)
     return(list(hits = hit, nohits = nohit))
 }
 
