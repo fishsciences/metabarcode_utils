@@ -2,8 +2,9 @@
 
 export(batch_csv_to_fasta)
 export(batch_extract_ncbi_tabs)
-export(batch_mito_to_csv)
+export(batch_mitofish_to_csv)
 export(batch_reduce_ncbi)
+export(combine_fasta)
 export(csv_to_fasta)
 export(extract_ncbi_tabs)
 export(mitofish_to_csv)
