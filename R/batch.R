@@ -17,7 +17,7 @@
 ##' @author Matt Espe
 ##' @export
 batch_mitofish_to_csv = function(file_dir,
-                             out_dir, ...)
+                                 out_dir, ...)
 {
     batch_generic(file_dir, out_dir, "\\.xlsx$", mitofish_to_csv, ...)
 }
@@ -56,8 +56,8 @@ combine_fasta = function(fasta_dir,
                          fasta_files = list.files(fasta_dir, fasta_pattern, full.names = TRUE))
 {
     
-    ll = do.call(c, lapply(readLines(fasta_files)))
-
+    ll = do.call(c, lapply(fasta_files, readLines))
+    
     i = if(!missing(max_records)){
             seq(length(ll)) %/% (max_records * 2) # each record is 2 lines
         } else
@@ -68,7 +68,7 @@ combine_fasta = function(fasta_dir,
     if(missing(out_dir))
         out_dir = fasta_dir
 
-    new_names = file.path(out_dir, paste0(new_names, seq(along = ll)))
+    new_names = file.path(out_dir, paste0(new_names, seq(along = ll), ".txt"))
     
     mapply(writeLines, text = ll, con = new_names)
 
@@ -144,7 +144,8 @@ batch_generic = function(file_dir,
                          files = list.files(file_dir,
                                             pattern = file_pat,
                                             full.names = TRUE,
-                                            recursive = TRUE))
+                                            recursive = TRUE),
+                         ...)
 {
     if(missing(out_dir))
         out_dir = tempdir()
