@@ -31,10 +31,16 @@ mitofish_to_csv = function(file, outfile = basename(file),
     })
     
     names(df) = st
+
     
     hit = df[st != "NoHits"]
     nohit = df[st == "NoHits"]
     
+    # Special case where the nohits populate the wrong tab of the sheet
+    is_nohits = sapply(hit, ncol) <= 4
+    if(any(is_nohits))
+        hit = hit[!is_nohits]
+
     hit = mapply(process_hits, hit, names(hit), SIMPLIFY=FALSE)
     hit = do.call(rbind, hit)
     write.csv(hit, file.path(outdir, paste0(ff, "_hits.csv")), row.names = FALSE)

@@ -29,3 +29,9 @@ stopifnot(length(tt) == 2)
 ff = list.files(out_dir)
 
 csv_to_fasta(file.path(out_dir, "20210429TWI2A_A_hits.csv"), outdir = out_dir)
+
+# Test nohits on hits tab
+f = system.file(package = "metabarcodeUtils",
+                "sample_files",
+                "20210527TWI7A_B.xlsx")
+tt = mitofish_to_csv(f, outdir = out_dir)
