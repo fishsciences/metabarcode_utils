@@ -2,7 +2,9 @@
 
 get_sp_names = function(lines)
 {
-    x = grep("Query #[0-9]+:", lines, value = TRUE)
+    i = grep("Query #[0-9]+:", lines)
+    not_found = lines[i + 2] == "No significant similarity found."
+    x = lines[i[!not_found]]
     sapply(strsplit(x, " "), "[", 3)
 }
 
@@ -37,13 +39,15 @@ extract_ncbi_tabs = function(file,
 {
     locs = get_tbl_loc(lines)
     sp = get_sp_names(lines)
-    tabs = lapply(seq(nrow(locs)), function(i){
+    tabs = lapply(seq(nrow(locs)), function(i){ try({
         tt = read.fwf(textConnection(lines[locs[i,1]:locs[i,2]]),
                       header = FALSE,
-                      widths = col_widths)
+                      widths = col_widths,
+                      comment.char = "")
         colnames(tt) = col_names
         tt$query_cover = as.numeric(gsub("%| ", "", tt$query_cover)) 
         tt                        
+    })
     })
     names(tabs) = sp
     tabs

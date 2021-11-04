@@ -21,3 +21,12 @@ w3$Species4 = "<80% Per Ident"
 
 write_ncbi_tabs(w3, d)
 
+if(FALSE) { # these tests require large files
+
+    f1 = "~/Downloads/S5GMB5JE013-Alignment.txt"
+
+    tt = extract_ncbi_tabs(f1)
+
+    f2 = "~/Downloads/S5GPWM4D013-Alignment.txt"
+    tt = extract_ncbi_tabs(f2)
+}
