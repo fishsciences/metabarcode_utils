@@ -15,7 +15,8 @@ stopifnot(class(w3) == "list")
 
 d = tempdir()
 write_ncbi_tabs(w3, d)
-
+write_ncbi_tabs(w3[[1]], d)
+write_ncbi_tabs(w3, d, combine = TRUE)
 w3$Species3 = "<90% Coverage"
 w3$Species4 = "<80% Per Ident"
 

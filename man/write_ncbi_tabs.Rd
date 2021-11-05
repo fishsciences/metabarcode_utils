@@ -8,7 +8,8 @@ write_ncbi_tabs(
   x,
   outdir = ".",
   out_prefix = "NCBI_reduced_",
-  out_names = names(x),
+  combine = FALSE,
+  out_names = if (is.data.frame(x)) "out" else names(x),
   ...
 )
 }
@@ -18,6 +19,9 @@ write_ncbi_tabs(
 \item{outdir}{the directory to write CSVs to}
 
 \item{out_prefix}{the common prefix for all files}
+
+\item{combine}{logical, if TRUE the tables will be combined into a
+single CSV}
 
 \item{out_names}{the unique name to use for each table}
 
