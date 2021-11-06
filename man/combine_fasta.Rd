@@ -2,7 +2,7 @@
 % Please edit documentation in R/batch.R
 \name{combine_fasta}
 \alias{combine_fasta}
-\title{}
+\title{Combine fasta files into one}
 \usage{
 combine_fasta(
   fasta_dir,
@@ -36,10 +36,8 @@ written into the same directory as input files.}
 file names of new combined files
 }
 \description{
-.. content for \description{} (no empty lines) ..
-}
-\details{
-.. content for \details{} ..
+Takes a directory full of fasta files, and combines them into a
+single one.
 }
 \author{
 Matt Espe

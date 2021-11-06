@@ -29,10 +29,12 @@ batch_csv_to_fasta = function(csv_dir,
 {
     batch_generic(csv_dir, out_dir, "\\.csv$", csv_to_fasta, ...)
 }
-##' .. content for \description{} (no empty lines) ..
+
+##' Takes a directory full of fasta files, and combines them into a
+##' single one.
 ##'
-##' .. content for \details{} ..
-##' @title
+##' 
+##' @title Combine fasta files into one
 ##' @param fasta_dir directory containing fasta files to combine
 ##' @param fasta_pattern the pattern to match for fasta files
 ##'     (e.g. "NoHit")
