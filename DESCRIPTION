@@ -7,6 +7,7 @@ Author: Matt Espe
 Maintainer: Matt Espe <one.straw.consulting@gmail.com>
 Description: Utilities for the meta-barcoding workflow
 Imports:
+	methods,
 	readxl,
 	utils
 License: GPL-3
