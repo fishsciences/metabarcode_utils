@@ -59,6 +59,7 @@ combine_fasta = function(fasta_dir,
 {
     
     ll = do.call(c, lapply(fasta_files, readLines))
+    ll = gsub(" ", "_", ll)
     
     i = if(!missing(max_records)){
             seq(length(ll)) %/% (max_records * 2) # each record is 2 lines

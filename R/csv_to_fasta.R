@@ -23,6 +23,7 @@ construct_fasta = function(df)
     
 {
     sn = df[,grep("samplename", colnames(df), ignore.case = TRUE)]
+    sn = gsub(" ", "_", sn)
     sq = df[,grep("sequence", colnames(df),  ignore.case = TRUE)]
     paste(paste0(">", sn), sq, sep = "\n", collapse = "\n")    
 }
