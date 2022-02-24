@@ -38,7 +38,11 @@ write_ncbi_tabs = function(x, outdir = ".", out_prefix = "NCBI_reduced_",
 combine_ncbi_tabs = function(x)
     # x is list of tables
 {
-    ans = do.call(rbind, x)
-    ans$species = rep(names(x), sapply(x, nrow))
+    i = sapply(x, is.data.frame)
+    if(any(i)) warning("Excluding tables without rows\n",
+                       paste(names(x)[!i], "\n"))
+    
+    ans = do.call(rbind, x[i])
+    ans$species = rep(names(x)[i], sapply(x[i], nrow))
     ans
 }
