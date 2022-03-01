@@ -88,7 +88,7 @@ reduce_ncbi = function(df,
     
     df = df[,colnames(df) %in% keep_cols]
     if(max(df$query_cover, na.rm = TRUE) < query_threshold)
-        return("<90% Coverage")
+        return(paste0("<", query_threshold, "% Coverage"))
 
     if(max(df$per_ident, na.rm = TRUE) < min(thresholds))
         return(paste0("<", min(thresholds), "% Per Ident"))
@@ -97,13 +97,16 @@ reduce_ncbi = function(df,
         ans = subset(df, per_ident > th)
         if(nrow(ans)){
             ans = unique(subset(df, per_ident > th))
+            
             return(switch(accession_keep,
-                   all = ans,
-                   top = get_top_accessions(ans)))
+                          all = ans,
+                          top = get_top_accessions(ans)))
 
         }
     }
-    stop("something went wrong - no records returned")
+    if(!nrow(ans))
+        warning("Inputs too restrictive - no records remaining in result!")
+    ans
 }
 
 get_top_accessions = function(df)
