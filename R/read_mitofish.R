@@ -27,6 +27,9 @@ mitofish_to_csv = function(file, outfile = basename(file),
     }
     df = lapply(df, function(x) {
         colnames(x) = gsub(" ", "", colnames(x))
+        i = grep("samplename", tolower(colnames(x)))
+        if(length(i))
+            colnames(x)[i] = "SampleName"
         x
     })
     

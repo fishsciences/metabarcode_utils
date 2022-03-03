@@ -1,7 +1,7 @@
 Package: metabarcodeUtils
 Type: Package
 Title: Meta-barcoding Utilities
-Version: 0.2.3
+Version: 0.2.4
 Date: 2021-10-25
 Author: Matt Espe
 Maintainer: Matt Espe <one.straw.consulting@gmail.com>
