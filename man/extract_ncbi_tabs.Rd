@@ -7,7 +7,6 @@
 extract_ncbi_tabs(
   file,
   lines = readLines(file),
-  col_widths = c(66, 16, 16, 11, 7, 6, 6, 6, 7, 11, 10),
   col_names = c("description", "scientific_name", "common_name", "taxid", "max_score",
     "total_score", "query_cover", "e_value", "per_ident", "acc_len", "accession")
 )
@@ -16,8 +15,6 @@ extract_ncbi_tabs(
 \item{file}{file path to NCBI output file}
 
 \item{lines}{the raw lines of the text file}
-
-\item{col_widths}{integer vector giving the widths of the columns for the table}
 
 \item{col_names}{character vector of column names to assign}
 }
