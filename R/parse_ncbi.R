@@ -22,16 +22,12 @@ get_tbl_loc = function(lines)
 ##' @title Extract Tables from NCBI Output
 ##' @param file file path to NCBI output file
 ##' @param lines the raw lines of the text file
-##' @param col_widths integer vector giving the widths of the columns for the table
 ##' @param col_names character vector of column names to assign
 ##' @return list, with one element per table
 ##' @author Matt Espe
 ##' @export
 extract_ncbi_tabs = function(file,
                              lines = readLines(file),
-                             # Hacky fix to issue with longer lines when total score is high
-                             col_widths = list("169" = c(66, 16, 16, 11, 7, 6, 6, 6, 7, 11, 10),
-                                               "173" = c(66, 16, 16, 11, 7, 10, 6, 6, 7, 11, 10)),
                              col_names = c("description", "scientific_name",
                                            "common_name", "taxid",
                                            "max_score", "total_score",
@@ -41,12 +37,12 @@ extract_ncbi_tabs = function(file,
 {
     locs = get_tbl_loc(lines)
     sp = get_sp_names(lines)
+    cw = get_tbl_spacing(locs, lines)
     tabs = lapply(seq(nrow(locs)), function(i){ try({
         l_tmp = lines[locs[i,1]:locs[i,2]]
-        cw = col_widths[[as.character(nchar(l_tmp[[1]]))]]
         tt = read.fwf(textConnection(l_tmp),
                       header = FALSE,
-                      widths = cw,
+                      widths = cw[[i]],
                       comment.char = "")
         colnames(tt) = col_names
         tt$query_cover = as.numeric(gsub("%| ", "", tt$query_cover)) 
@@ -56,6 +52,15 @@ extract_ncbi_tabs = function(file,
     names(tabs) = sp
     tabs
 }
+
+get_tbl_spacing = function(locs, lines)
+    #gets the spacing for the table based on the header
+{
+    header_lines = lines[locs[,1] - 1]
+    i = gregexpr(" [A-z]", header_lines)
+    lapply(i, function(x) c(x[1], diff(x), 50)) # 50 should hit end of line
+}
+
 
 ##' Reduces the results of the NCBI BLASTN results. 
 ##'
