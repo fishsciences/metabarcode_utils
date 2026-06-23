@@ -2,6 +2,7 @@
 % Please edit documentation in R/metabarcodeUtils-pkg.R
 \docType{package}
 \name{metabarcodeUtils}
+\alias{metabarcodeUtils-package}
 \alias{metabarcodeUtils}
 \title{metabarcodeUtils: A package of utilities for the eDNA
 metabarcoding workflow}

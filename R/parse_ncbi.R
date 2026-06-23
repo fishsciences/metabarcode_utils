@@ -1,11 +1,31 @@
 # parse the BLAST file output from NCBI
 
+##' Convenience function for returning all the queries returned in an
+##' NCBI results file, including those without results
+##' 
+##' @title Get Queries from NCBI result
+##' @param file character, the name of the file to return queries from
+##' @param lines individual lines of the output from \code{readLines(file)}
+##' @return data.frame with columns query (string) and results (logical)
+##' @author Matt Espe
+##' @export
+get_queries = function(file,
+                       lines = readLines(file))
+{
+  i = grep("Query #[0-9]+:", lines)
+  not_found = lines[i + 2] == "No significant similarity found."
+  x = lines[i]
+  data.frame(query = sapply(strsplit(x, " "), "[", 3),
+             results = !not_found)
+}
+
+
 get_sp_names = function(lines)
 {
-    i = grep("Query #[0-9]+:", lines)
-    not_found = lines[i + 2] == "No significant similarity found."
-    x = lines[i[!not_found]]
-    sapply(strsplit(x, " "), "[", 3)
+  i = grep("Query #[0-9]+:", lines)
+  not_found = lines[i + 2] == "No significant similarity found."
+  x = lines[i[!not_found]]
+  sapply(strsplit(x, " "), "[", 3)
 }
 
 
@@ -35,10 +55,11 @@ extract_ncbi_tabs = function(file,
                                            "per_ident", "acc_len", "accession"))       
 
 {
-    locs = get_tbl_loc(lines)
-    sp = get_sp_names(lines)
-    cw = get_tbl_spacing(locs, lines)
-    tabs = lapply(seq(nrow(locs)), function(i){ try({
+  locs = get_tbl_loc(lines)
+  qry = get_queries(lines = lines)
+  sp = qry$query[qry$results]
+  cw = get_tbl_spacing(locs, lines)
+  tabs = lapply(seq(nrow(locs)), function(i){ try({
         l_tmp = lines[locs[i,1]:locs[i,2]]
         tt = read.fwf(textConnection(l_tmp),
                       header = FALSE,
